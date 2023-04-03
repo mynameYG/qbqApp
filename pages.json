@@ -1,0 +1,1271 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://unijh]l]u]app.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "淇滨区一刻钟(15分钟)生活圈",
+				"app-plus": {
+					"titleSize": "17px"
+				}
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "地图",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/map/newMap",
+			"style": {
+				"navigationBarTitleText": "新地图",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/service/service-index",
+			"style": {
+				"navigationBarTitleText": "社区服务",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}
+		
+		
+	],
+	"subPackages":[{
+		"root":"PProperty",
+		"pages":[{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/login/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/my/password",
+			"style": {
+				"navigationBarTitleText": "修改密码",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/my/my-info",
+			"style": {
+				"navigationBarTitleText": "个人信息",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/my/my-follow",
+			"style": {
+				"navigationBarTitleText": "我的关注",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/repair-index",
+			"style": {
+				"navigationBarTitleText": "在线报修",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/repair-add",
+			"style": {
+				"navigationBarTitleText": "报修",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/repair-detail",
+			"style": {
+				"navigationBarTitleText": "报修详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/vote",
+			"style": {
+				"navigationBarTitleText": "在线投票",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/vote-detail",
+			"style": {
+				"navigationBarTitleText": "投票详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/property",
+			"style": {
+				"navigationBarTitleText": "物业服务",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/property-zs-index",
+			"style": {
+				"navigationBarTitleText": "物业展示",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/property-zs-detail",
+			"style": {
+				"navigationBarTitleText": "物业展示详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/property-cost",
+			"style": {
+				"navigationBarTitleText": "物业费",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/feedback-index",
+			"style": {
+				"navigationBarTitleText": "意见反馈",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/feedback-add",
+			"style": {
+				"navigationBarTitleText": "新增意见反馈",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/feedback-detail",
+			"style": {
+				"navigationBarTitleText": "意见反馈详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/clapper-index",
+			"style": {
+				"navigationBarTitleText": "社区拍客",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/clapper-area",
+			"style": {
+				"navigationBarTitleText": "社区拍客",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/clapper-type",
+			"style": {
+				"navigationBarTitleText": "社区拍客",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/clapper-add",
+			"style": {
+				"navigationBarTitleText": "社区拍客",
+				"app-plus": {
+					// "titleNView":false
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/clapper-detail",
+			"style": {
+				"navigationBarTitleText": "查看详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/my-integral",
+			"style": {
+				"navigationBarTitleText": "我的积分",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/contacts/street-list",
+			"style": {
+				"navigationBarTitleText": "选择所属区域",
+				"app-plus": {
+					"titleNView": {
+						"autoBackButton": "false",
+						"titleSize": "17px",
+						"buttons": [{
+							"float": "left",
+							"text": "取消",
+							"fontSize": "14px",
+							"color": "#fff",
+							"width": "60px"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/contacts/street-list-list",
+			"style": {
+				"navigationBarTitleText": "通讯录",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+		
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/contacts/street-list-popup",
+			"style": {
+				"navigationBarTitleText": "已选择",
+				"app-plus": {
+					"animationType": "slide-in-bottom",
+					"titleNView": {
+						"autoBackButton": "false",
+						"titleSize": "17px",
+						"buttons": [{
+							"float": "left",
+							"text": "清空",
+							"fontSize": "14px",
+							"color": "#FF0000",
+							"width": "60px"
+						}, {
+							"float": "right",
+							"text": "关闭",
+							"fontSize": "14px",
+							"color": "#fff",
+							"width": "60px"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/components/webPage",
+			"style": {
+				"navigationBarTitleText": "外网",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		}
+		]
+	},
+	{
+		"root":"PBusiness",
+		"pages":[
+			{
+				"path": "pages/service/business/business-index",
+				"style": {
+					"navigationBarTitleText": "营商环境",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/business-company",
+				"style": {
+					"navigationBarTitleText": "营商环境",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/busssiness-rc-detail",
+				"style": {
+					"navigationBarTitleText": "职位介绍",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/problem-list",
+				"style": {
+					"navigationBarTitleText": "有诉必达",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/problem-add",
+				"style": {
+					"navigationBarTitleText": "有诉必达",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/problem-type",
+				"style": {
+					"navigationBarTitleText": "问题类型",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/problem-detail",
+				"style": {
+					"navigationBarTitleText": "问题详情",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/business-channelList",
+				"style": {
+					"navigationBarTitleText": "带你学条例",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/business-contList",
+				"style": {
+					"navigationBarTitleText": "营商环境",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/business-detail",
+				"style": {
+					"navigationBarTitleText": "营商环境",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/service/business/business-list",
+				"style": {
+					"navigationBarTitleText": "营商环境",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+		{
+			"path": "pages/service/voluntary/voluntary-index",
+			"style": {
+				"navigationBarTitleText": "文明示范",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary-zyfwChannel",
+			"style": {
+				"navigationBarTitleText": "志愿服务",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary",
+			"style": {
+				"navigationBarTitleText": "志愿服务",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary-detail",
+			"style": {
+				"navigationBarTitleText": "志愿服务",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary-singUp",
+			"style": {
+				"navigationBarTitleText": "报名",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/activity/activity-list",
+			"style": {
+				"navigationBarTitleText": "公益活动",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/activity/activity-detail",
+			"style": {
+				"navigationBarTitleText": "公益活动",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/activity/activity-singUp",
+			"style": {
+				"navigationBarTitleText": "报名",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary-pic",
+			"style": {
+				"navigationBarTitleText": "志愿者风采",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/voluntary-people",
+			"style": {
+				"navigationBarTitleText": "党员先锋",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/voluntary/model-detail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/partyOrg/partyOrg",
+			"style": {
+				"navigationBarTitleText": "党组织",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/service/partyOrg/partyPioneer",
+			"style": {
+				"navigationBarTitleText": "党员先锋",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/partyOrg/partyPioneer-detail",
+			"style": {
+				"navigationBarTitleText": "党员先锋",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/partyOrg/partyWish",
+			"style": {
+				"navigationBarTitleText": "党建微心愿",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/partyOrg/partyWish-detail",
+			"style": {
+				"navigationBarTitleText": "党建微心愿",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/articleModel/articleModel-channel-hx",
+			"style": {
+				"navigationBarTitleText": "文章列表",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/articleModel/articleModel-channel-sx",
+			"style": {
+				"navigationBarTitleText": "文章列表",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/articleModel/articleModel-infoList-s",
+			"style": {
+				"navigationBarTitleText": "文章列表",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/articleModel/articleModel-detail",
+			"style": {
+				"navigationBarTitleText": "文章列表",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/infoModel/infoModel-channel",
+			"style": {
+				"navigationBarTitleText": "党建阵地",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/infoModel/infoModel-detail",
+			"style": {
+				"navigationBarTitleText": "党建阵地",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/credit/credit-index",
+			"style": {
+				"navigationBarTitleText": "信用示范",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/credit/credit-list",
+			"style": {
+				"navigationBarTitleText": "信用条例",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/credit/credit-channel",
+			"style": {
+				"navigationBarTitleText": "信易+",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/business/advice-add",
+			"style": {
+				"navigationBarTitleText": "意见建议",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/service/business/advice-detail",
+			"style": {
+				"navigationBarTitleText": "意见建议",
+				"app-plus": {
+					"titleNView": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		}]
+		},
+		{
+			"root":"PGov",
+			"pages":[
+				{
+					"path": "pages/index/scenic/scenic-detail",
+					"style": {
+						"navigationBarTitleText": "淇澳+风景区简介",
+						"app-plus": {
+							"titleSize": "17px"
+						}
+					}
+				},
+				{
+					"path": "pages/index/map",
+					"style": {
+						"navigationBarTitleText": "列表",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				},
+				{
+					"path": "pages/index/mapChannel",
+					"style": {
+						"navigationBarTitleText": "淇澳+",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				},
+				{
+					"path": "pages/index/map-channelChild",
+					"style": {
+						"navigationBarTitleText": "淇澳+",
+						"app-plus": {
+							"titleSize": "17px"
+						}
+					}
+				},
+				{
+					"path": "pages/index/mapChannel-itemInfo",
+					"style": {
+						"navigationBarTitleText": "淇澳+",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px",
+								"buttons": [{
+									"float": "right",
+									"text": "到这去",
+									"fontSize": "14px",
+									"color": "#fff",
+									"width": "50px"
+								}]
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/index/medicine-list",
+					"style": {
+						"navigationBarTitleText": "淇澳+",
+						"app-plus": {
+							"titleSize": "17px"
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-index",
+					"style": {
+						"navigationBarTitleText": "场地",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-detail",
+					"style": {
+						"navigationBarTitleText": "场地详情",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px",
+								"buttons": [{
+									"float": "right",
+									"text": "公告",
+									"fontSize": "14px",
+									"color": "#fff",
+									"width": "60px"
+								}]
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-add",
+					"style": {
+						"navigationBarTitleText": "预约场地",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px",
+								"buttons": [{
+									"float": "right",
+									"text": "查看预约情况",
+									"fontSize": "14px",
+									"color": "#fff",
+									"width": "96px"
+								}]
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-occupancy",
+					"style": {
+						"navigationBarTitleText": "查看预约情况",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-list",
+					"style": {
+						"navigationBarTitleText": "场地预约",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/fitness/fitness-list-detail",
+					"style": {
+						"navigationBarTitleText": "场地预约详情",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+			{
+				"path": "pages/notice/notice-index",
+				"style": {
+					"navigationBarTitleText": "通知公告",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+			
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/notice/notice-detail",
+				"style": {
+					"navigationBarTitleText": "详情",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+			
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/gov/gov-index",
+				"style": {
+					"navigationBarTitleText": "政务公开",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/gov/gov-list",
+				"style": {
+					"navigationBarTitleText": "政务",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/gov/gov-detail",
+				"style": {
+					"navigationBarTitleText": "政务详情",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/gov/survey-detail",
+				"style": {
+					"navigationBarTitleText": "机构概况",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/gov/gov-jgszDetail",
+				"style": {
+					"navigationBarTitleText": "政务详情",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/popularWill/popularWill-list",
+				"style": {
+					"navigationBarTitleText": "社情民意",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/popularWill/popularWill-add",
+				"style": {
+					"navigationBarTitleText": "新增社情民意",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/popularWill/popularWill-detail",
+				"style": {
+					"navigationBarTitleText": "社情民意",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/says/says-channel",
+				"style": {
+					"navigationBarTitleText": "我有话说",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/says/says-list",
+				"style": {
+					"navigationBarTitleText": "我有话说",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/says/says-add",
+				"style": {
+					"navigationBarTitleText": "新增我有话说",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/says/says-detail",
+				"style": {
+					"navigationBarTitleText": "我有话说",
+					"app-plus": {
+						"titleNView": {
+							"titleSize": "17px"
+						}
+					}
+				}
+			},
+			{
+				"path": "pages/party/party-index",
+				"style": {
+					"navigationBarTitleText": "党建志愿",
+					"app-plus": {
+						"titleSize": "17px"
+					}
+				}
+			},
+			{
+				"path": "pages/party/gov-index",
+				"style": {
+					"navigationBarTitleText": "政务服务",
+					"app-plus": {
+						"titleSize": "17px"
+					}
+				}
+			},
+			{
+				"path": "pages/survey/survey-list",
+				"style": {
+					"navigationBarTitleText": "问卷调查",
+					"app-plus": {
+						"titleSize": "17px"
+					}
+				}
+			},
+			{
+				"path": "pages/survey/survey-detail",
+				"style": {
+					"navigationBarTitleText": "问卷调查",
+					"app-plus": {
+						"titleSize": "17px"
+					}
+				}
+			}
+		]},
+		{
+			"root":"PStore",
+			"pages":[
+				{
+					"path": "pages/store/store-index",
+					"style": {
+						"navigationBarTitleText": "周边生活",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/store/store-list",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/store/party-detail",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/store/yuyue-detail",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/store/carP",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": false
+						}
+					}
+				},
+				{
+					"path": "pages/store/book-detail",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px"
+							}
+						}
+					}
+				},
+				{
+					"path": "pages/store/store-detail",
+					"style": {
+						"navigationBarTitleText": "商店",
+						"app-plus": {
+							"titleNView": {
+								"titleSize": "17px",
+								"buttons": [{
+									"float": "right",
+									"text": "关注",
+									"fontSize": "14px",
+									"color": "#fff",
+									"width": "40px"
+								}]
+							}
+						}
+					}
+				}]
+		}
+	],
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#1B6EE6",
+		// #ifdef APP-PLUS || H5
+		"borderStyle": "#F1F1F1",
+		//#endif
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "/static/img/tab-home.png",
+			"selectedIconPath": "/static/img/tab-home-active.png",
+			"text": "首页"
+		},
+		{
+			"pagePath": "pages/map/map",
+			"iconPath": "/static/img/tab-patrol.png",
+			"selectedIconPath": "/static/img/tab-patrol-active.png",
+			"text": "地图"
+		},
+		{
+			"pagePath": "pages/service/service-index",
+			"iconPath": "/static/img/tab-question.png",
+			"selectedIconPath": "/static/img/tab-question-active.png",
+			"text": "服务"
+		},{
+			"pagePath": "pages/my/my",
+			"iconPath": "/static/img/tab-my.png",
+			"selectedIconPath": "/static/img/tab-my-active.png",
+			"text": "我的"
+		}]
+	},
+	"globalStyle": {
+		// "pageOrientation": "landscape",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#1B6EE6",
+		"backgroundColor": "#F8F8F8"
+	}
+}
