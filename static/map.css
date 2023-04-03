@@ -1,0 +1,1096 @@
+@charset "UTF-8";
+body {
+  width: 100%;
+  margin: 0px;
+  background-color: #FAFAFA;
+  margin: 0px;
+  padding: 0px;
+  font-size: 12px; }
+
+html, body, #allmap {
+  height: 100%;
+  width: 100%; }
+
+input, button,textarea {
+  outline: none; }
+
+body {
+  margin: 0; }
+  
+  
+body{
+   width:100%;
+   margin:0px;
+   background-color:#FAFAFA;margin: 0px;padding:0px;font-size: 12px;
+}
+html, body, #allmap {
+	height: 100%;
+   width: 100%;
+   overflow: hidden;
+}
+input,button{
+	outline: none;
+}
+body{
+   margin:0;
+}
+/*单行溢出*/
+.text-ellipsis {
+display: block;
+white-space: nowrap;
+word-wrap: normal;
+overflow: hidden;
+-o-text-overflow: ellipsis;
+/* 1*/
+text-overflow: ellipsis;
+text-align: left;
+/* 2*/
+}
+#allmap{
+	margin:0;
+	height: 100vh;
+}
+/* div{width:95%;margin:10px auto;} */
+.map-search{
+	position: fixed;
+	top:68px;
+	left:0;
+	width:100%;
+	z-index: 99;
+	padding:10px;
+	box-sizing: border-box;
+	font-size:13px;
+	background: rgba(255,255,255,.6);
+}
+.map-search .search-input{
+	border: 1px solid #e4e4e4;
+	padding:8px;
+	border-radius: 5px;
+	background-color: #fff;
+	width: calc(100vw - 36px);
+	color:#999
+}
+.map-search .search-btn{
+	float: left;
+	margin-top: 8px;
+	margin-left: 6px;
+	width: 20px;
+	height: 20px;
+	background: url(img/map-search.png) no-repeat center;
+	background-size: 100%;
+}
+#content{
+	position: fixed;
+	bottom:0;
+	/* max-height: 50%; */
+	min-height: 33px;
+	left:0;
+	width:100%;
+	z-index: 99;
+}
+.flex {
+	display: -webkit-box;
+	display: -moz-box;
+	display: box;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	-webkit-box-lines: multiple;
+}
+.flex1 {
+	-moz-box-flex: 1;
+	flex: 1;
+	min-width: 0;
+}
+input {width:75px;margin-right:2px;}
+.r-result{
+	height:94px;
+	overflow-y: scroll;
+}
+.r-result-open{
+	height: auto;
+	max-height: 50vh;
+}
+.r-result-small{
+	height:36px;
+}
+#result-list{
+	width:100%;
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+	overflow:hidden;
+	/* box-shadow: 0 1px 4px rgba(0, 0, 0, .06); */
+	border-radius: 5px;
+	} 
+#result-list li {
+	position: relative;
+	width:100%;
+	border-bottom:1px solid #FAFAFA
+	}
+	#result-list li .inner{
+		padding:15px;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		background-color: #fff;
+		font-size:12px;
+	}
+	#result-list li .inner p{
+		margin:0;
+		padding:0;
+		line-height:1.6;
+		color: #666;
+	}
+	#result-list li .inner .distance{
+		position: absolute;
+		top:30px;
+		right:10px;
+	}
+	#result-list li span {display:none;}
+	.search-result{
+		margin:0;
+		padding:10px 15px;
+		font-size: 12px;
+		/* background:rgba(255,255,255,.6); */
+		text-align: center;
+		color:#999;
+		background-color: #fff;
+	}
+	.search-result .inputText{
+		display: inline-block;
+		vertical-align: -3px;
+		color:#1B6EE6;
+		font-weight: 600;
+		max-width: 90px;
+		overflow: hidden;
+	}
+	.num{
+		color:#1B6EE6;
+		font-weight: 600;
+	}
+	.display-btn{
+		margin: 0;
+		padding: 10px 0;
+		text-align: center;
+		background: #fff;
+		color:#999;
+		border-top: 1px solid #FAFAFA;
+	}
+	.display-btn img{
+		width: 16px;
+		height: 16px;
+		vertical-align: -3px;
+	}
+	.display-btn-up{
+		/* position: absolute;
+		bottom:0;
+		left:0; */
+		width: 100%;
+	}
+	.searchTitleBox{
+		z-index: 9999;
+		position: fixed;
+		top: 68px;
+		right:0;
+		width: 100%;
+		height: 100vh;
+	}
+	.searchTitleBoxBg{
+		position: absolute;
+		top: 0;
+		right:0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,.5);
+	}
+	.searchTitleWrap{
+		width: 33%;
+		max-width: 145px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		padding-bottom: 28px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-color: #fff;
+	}
+	.searchTitle{
+		width: 100%;
+		height: auto;
+		/* max-height: calc(100vh - 378px); */
+		/* overflow-y: auto; */
+	}
+	.searchTitle-all{
+		position: relative;
+		padding:20px 0 15px 35px;
+		border-bottom: 1px solid #E6E6E6;
+		font-size: 14px;
+	}
+	.searchTitle-all:before{
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 20px;
+		width: 24px;
+		height: 24px;
+		background: url(img/map-type.png) no-repeat center;
+		background-size:100%;
+	}
+	.searchTitle p{
+		margin-top: 0;
+		margin-bottom: 0;
+		padding: 10px 0;
+		border: 0;
+		/* width: 70px; */
+		text-align: left;
+		border-bottom: 1px solid #E6E6E6;
+		font-size: 12px;
+	/* 	margin-bottom: 2px;
+		border-radius: 3px;
+		box-shadow: 0 0 6px #e4e4e4;
+		background:#fff; */
+	}
+	.regular-checkbox {
+		display: none;
+	}
+	
+	.regular-checkbox + label {
+		float: right;
+		margin-top: 2px;
+		background-color: #fafafa;
+		border: 1px solid #cacece;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+		padding: 8px;
+		border-radius: 3px;
+		display: inline-block;
+		position: relative;
+		vertical-align: -5px;
+	}
+	
+	.regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+		box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+	}
+	.regular-checkbox[checked='checked'] + label,
+	.regular-checkbox:checked + label {
+		background-color: #1B6EE6;
+		border: 1px solid #1B6EE6;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+		color: #fff;
+	}
+	.regular-checkbox[checked='checked'] + label:after,
+	.regular-checkbox:checked + label:after {
+		content: '\2713';
+		font-size: 14px;
+		position: absolute;
+		top: -1px;
+		left: 3px;
+		color: #fff;
+	}
+	.searchTitle .group .code{
+		margin-right:10px;
+		border-radius: 50%;
+		overflow: hidden;
+		width: 24px;
+		height: 24px;
+		display: inline-block;
+		line-height: 24px;
+		color: #fff;
+		vertical-align: -7px;
+		text-align: center;
+	}
+	.searchTitle .group.school .code{
+		background-color: #2F769B;
+	}
+	.searchTitle .group.green .code{
+		background-color: #00C863;
+	}
+	.searchTitle .group.health .code{
+		background-color: #0051D6;
+	}
+	.searchTitle .group.intserv .code{
+		background-color: #F0415A;
+	}
+	.searchTitle .group.culture .code{
+		background-color: #9B58FF;
+	}
+	.searchTitle .group.oldLife .code{
+		background-color: #589BFF;
+	}
+	.searchTitle .group.characteristic .code{
+		background-color: #C3DA00;
+	}
+	.searchTitle .group.municipal .code{
+		background-color: #326F00;
+	}
+	.searchTitle .group.fitness .code{
+		background-color: #FF58CA;
+	}
+	.searchTitle .group.consume .code{
+		background-color: #DCB500;
+	}
+	/* .searchTitle .current{
+		color:#fff;
+		background-color: #1B6EE6;
+	} */
+	.searchTitle p.title{
+		margin-bottom:0;
+		box-shadow: none;
+		border-bottom: 1px solid #e4e4e4;
+		background: #FDEEEF;
+		border-radius: 0;
+	}
+	.searchTitle .group + .inner{
+		display: none;
+		margin-top:-2px;
+		margin-bottom: 2px;
+	}
+	.searchTitle .group + .inner p:last-child{
+		border-bottom:0;
+	}
+	.searchTitle p.title.current{
+		color:#1B6EE6;
+	}
+	.searchTitleWrap .btn{
+		position: absolute;
+		bottom:0;
+		left:0;
+		min-height: 16px;
+		margin-top: 0;
+		border: 0;
+		width: 100%;
+		text-align: center;
+		padding: 6px 0;
+		border-radius: 3px;
+		box-shadow: 0 0 6px #e4e4e4;
+		background: url(img/icon-up.png) #fff no-repeat center;
+		background-size: 20px;
+		font-size:0;
+	}
+	.searchTitleWrap .btn.down{
+		transform: rotate(180deg);
+		transition: all .3s ease;
+	}
+	.searchTitle.up{
+		transition: all .3s ease;
+		height: 38px;
+		overflow: hidden;
+	}
+	.hidden{
+		display: none!important;
+	}
+	.BMapGL_bubble_title>p>a[target="_blank"]{
+		display: none;
+	}
+	.contentBtn{
+		display: none;
+		/* content: "";
+		position: absolute;
+		top:0;
+		left:0; */
+		z-index: 1;
+		width: 100%;
+		height: 37px;
+		background-color: #fff;
+		border-bottom: 1px solid #FAFAFA;
+/* 		width:30px;
+		height: 30px;
+		margin-left: -15px;
+		background: url(img/map-downBtn.png) no-repeat center;
+		background-size:100%; */
+	}
+	.contentBtn:before{
+		content: "";
+		position: absolute;
+		top:0;
+		left:50%;
+		z-index: 1;
+		width: 30px;
+		height: 37px;
+		margin-left: -15px;
+		background: url(img/map-downBtn.png) no-repeat center;
+		background-size:100%;
+	}
+	.contentBtn.result{
+		position: absolute;
+		top:-13px;
+		left:50%;
+		border-radius: 3px;
+		content: '';            
+		display: block;    
+		margin-left:-7px;
+		width:15px;            
+		height:15px;    
+		background-color: transparent;
+		border-right: 4px solid rgba(153,153,153,.6);            
+		border-top:4px solid rgba(153,153,153,.6);            
+		-webkit-transform: rotate(315deg); /*箭头方向可以自由切换角度*/            
+		transform: rotate(315deg);
+	}
+	
+	#content.result #result-list{
+		height: 0;
+		transition:all 0.3s ease;
+	}
+.tr {
+  text-align: right !important; }
+.no-bb {
+border-bottom: 0 !important; }
+.arrow {
+position: relative; }
+
+.arrow:after {
+content: '';
+position: absolute;
+width: 8px;
+height: 8px;
+border-top: 2px solid #cdcdcd;
+border-right: 2px solid #cdcdcd;
+-webkit-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+top: 50%;
+margin-top: -4px;
+right: 12px; }
+  
+.heigthAuto{
+	height: auto!important;
+}
+input {
+  width: 75px;
+  margin-right: 2px; }
+
+.emptyPage {
+  width: 80%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  line-height: 30px; }
+
+.img {
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  background: url(img/emptyPage.png) no-repeat center;
+  background-size: 100%; }
+
+.indexMap-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 44px;
+  line-height: 44px;
+  /* #ifdef APP-PLUS */
+  padding-top: 24px;
+  height: 68px;
+  /* #endif */
+  /* position: fixed;
+	top: 0; */
+  background-color: #1B6EE6;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+  z-index: 9999;
+  box-sizing: border-box; }
+
+.indexMap-top > a {
+  position: absolute;
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  font-size: 14px;
+  font-weight: 500; }
+.gotoMap{
+	right:0
+}
+.indexMap-top > a img {
+  margin-top: 8px;
+  margin-left: 8px;
+  width: 27px;
+  height: 27px; }
+
+.indexMap-top p {
+  padding: 0;
+  margin: 0;
+  text-align: center; }
+
+.form-wrap {
+  padding-top: 44px;
+  /* #ifdef APP-PLUS */
+  padding-top: 68px;
+  /* #endif */
+  /* position: fixed;
+	top: 0; */
+  background-color: #fff;
+  border-radius: 3px; }
+
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+	border:0;
+   }
+.require {
+  position: relative; }
+
+.require:before {
+  content: '*';
+  color: #f00;
+  vertical-align: middle;
+  position: absolute;
+  left: -7px;
+  top: 2px; }
+.model-item {
+  padding: 15px;
+  border-bottom: 1px solid #EEEEEE; }
+
+.model-item:last-of-type {
+  border-bottom: none; }
+
+.model-item .model-label {
+  font-size: 14px;
+  color: #333;
+  line-height: 24px; }
+
+.model-item .model-editText {
+  height: 24px;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 24px;
+  margin: 0 5px; }
+
+.model-item .model-editText /deep/ uni-text + uni-text {
+  display: inline-block;
+  margin-left: 5px; }
+
+.model-item .model-decorate .iconfont {
+  font-size: 14px;
+  color: #909090;
+  line-height: 24px; }
+
+.model-item .gray-place {
+  color: gray; }
+
+.model-item .model-textarea {
+  overflow-y: auto;
+  width: 100%;
+  height:calc(100vh / 5);
+  font-size: 14px;
+  line-height: 24px; }
+
+.model-item /deep/ uni-textarea.model-textarea {
+  width: 100%;
+  height:calc(100vh / 5);
+  font-size: 14px;
+  line-height: 24px; }
+
+.model-item /deep/ uni-textarea.model-textarea .uni-textarea-wrapper, .model-item /deep/ uni-textarea.model-textarea .uni-textarea-placeholder {
+  font-size: 14px;
+  line-height: 24px; }
+
+.model-item /deep/ .uni-textarea-textarea {
+  font-size: 14px;
+  color: #333;
+  line-height: 24px;
+  margin-bottom: 0; }
+
+.model-item input {
+  font-size: 14px; }
+
+.model-textarea-box {
+  max-height: 48px;
+  overflow-y: auto; }
+
+.model-textarea-box textarea {
+  width: 100%; }
+
+.map-wrap{
+	position: relative;
+}
+.mapicon{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 26px;
+	margin-top: -10px;
+	z-index: 99;
+}
+.BMap_pop .marker-info {
+	position: relative;
+	background-color: transparent !important;
+}
+.marker-info .name {
+	margin:0;
+	padding:0;
+	margin-bottom:5px;
+	font-size: 15px;
+	line-height: 18px;
+	color: #333;
+	word-break: break-all;
+}
+.info-body p{
+	margin:0;
+	padding:0;
+	padding-bottom: 5px;
+	font-size:13px;
+	color:#333;
+}
+.marker-info .daohang {
+	float:right;
+	font-size:14px;
+	color:#1B6EE6;
+	text-align:right;
+}
+.marker-info  .more{
+	font-size:14px;
+	color:#1B6EE6;
+	text-align:left;
+}
+
+
+.input-card{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 99;
+	width: 100%;
+	right:0;
+	left:0;
+	margin:0 auto;
+}
+.input-card .btn{
+	font-size:14px;
+	height: 36px;
+	line-height: 36px;
+	background-color: #e4e4e4;
+	text-align: center;
+}
+
+.input-card .btn:last-child{
+	margin-right: 0;
+}
+.input-card .btn.current{
+	color:#fff;
+	background-color: #1B6EE6;
+}
+/* 重定义地图内样式 */
+.BMap_bubble_top{
+	height: 10px!important;
+}
+.BMap_bubble_center{
+	padding-bottom: 21px;
+}
+.anchorBL{
+	display: none;
+}
+.BMap_noprint.anchorBL{
+	display: block!important;
+	background-color: #0075F9;
+	/* inset: auto auto 60px 12px!important; */
+}
+.marker{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	color:#fff;
+	border-radius:100%;
+	background: url(img/mapIcon.png) no-repeat center;
+	background-size:180px;
+	background-position: 0 0;
+	}
+.marker:before{
+	content:"";
+	width:30px;
+	height:30px;
+	display: inline-block;
+	color:#fff;
+	line-height:30px;
+	text-align:center;
+}
+.marker.warning{z-index: 999;}
+/*方块*/
+.marker.school{
+	
+}
+.marker.school{
+	background:#2F769B;
+}
+.marker.school:before{
+	content:"学"
+}
+.marker.green{
+	background:#00C863;
+}
+.marker.green:before{
+	content:"出"
+}
+.marker.health{
+	background:#0051D6;
+}
+.marker.health:before
+{
+	content:"医"
+}
+.marker.intserv{
+	background:#F0415A;
+}
+.marker.intserv:before{
+	content:"综"
+}
+.marker.culture
+{
+	background:#9B58FF;
+}
+
+.marker.culture:before
+{
+	content:"文"
+}
+.marker.oldLife{
+	background:#589BFF;
+}
+.marker.oldLife:before
+{
+	content:"养"
+}
+.marker.municipal{
+	background:#326F00;
+}
+.marker.municipal:before{
+	content:"政"
+}
+.marker.fitness{
+	background:#FF58CA;
+}
+.marker.fitness:before
+{
+	content:"健"
+}
+.marker.consume
+{
+	background:#DCB500;
+}
+.marker.consume:before
+{
+	content:"便"
+}
+
+.marker.municipal{
+	background:#4A84FF;
+}
+.marker.municipal:before{
+	content:"P"
+}
+/* .marker.village{
+	background-position:-60px -60px;
+	background-size:180px;
+} */
+/* .marker.old{
+	background-position:-90px -60px;
+	background-size:180px;
+}
+.marker.book{
+	background-position:-120px -60px;
+	background-size:180px;
+}
+.marker.love{
+	background-position:0 -90px;
+	background-size:180px;
+}
+.marker.wc{
+	background-position:-30px -90px;
+	background-size:180px;
+}
+.marker.view{
+	background-position:-60px -90px;
+	background-size:180px;
+}
+.marker.park{
+	background-position:-90px -90px;
+	background-size:180px;
+}
+.marker.food{
+	background-position:-120px -90px;
+	background-size:180px;
+}
+.marker.stationery{
+	background-position:0 -120px;
+	background-size:180px;
+}
+.marker.cinema{
+	background-position:-30px -120px;
+	background-size:180px;
+}
+.marker.internet{
+	background-position:-60px -120px;
+	background-size:180px;
+}
+.marker.bar{
+	background-position:-90px -120px;
+	background-size:180px;
+}
+.marker.gym{
+	background-position:-120px -120px;
+	background-size:180px;
+}
+.marker.drugstore{
+	background-position:0 -150px;
+	background-size:180px;
+}
+.marker.repair{
+	background-position:-30px -150px;
+	background-size:180px;
+}
+.marker.beautyworld{
+	background-position:-60px -150px;
+	background-size:180px;
+}
+.marker.hotel{
+	background-position:-90px -150px;
+	background-size:180px;
+} */
+.marker.party{
+	background: url(img/partyMapmarker.png) no-repeat center;
+	background-size:100%;
+}
+
+.marker.nucleicAcid{
+	background: url(img/jcd.png) no-repeat center;
+	background-size:100%;
+}
+
+.marker .marker-info{
+	position: absolute;
+	bottom: 37px;
+	left: 50%;
+	width: auto;
+	min-width: 180px;
+	max-width: 100%;
+	transform: translateX(-40%);
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 10px;
+	z-index: 999;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+}
+.marker .marker-info .close{
+	position: absolute;
+	top:0;
+	right:10px;
+	font-size:19px;
+	font-family: sans-serif;
+	color:#999
+}
+.marker .marker-info:before{
+	position:absolute;
+	content:'';
+	bottom:0;
+	left: 40%;
+	position: absolute;
+	height: 0;
+	width: 0;
+	border: solid transparent;
+	pointer-events: none;
+	border-width: 7px;
+	margin-left: -8px;
+	border-top-color: #fff;
+	top: 100%;
+}
+/***/
+.search-historyResult{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background: #fff;
+	z-index: 9999;
+}
+.seek-box{
+	position: relative;
+	margin: 15px;
+	padding: 0px 0 0px 6px;
+	overflow: hidden;
+}
+.seek-box .seek-box-input{
+	width: calc(100% - 65px);
+	border:1px solid rgba(228, 228, 228, 1);
+	border-radius: 5px;
+	
+}
+.seek-box .icon-sousuo{
+	float: left;
+	margin:0;
+	margin-top: 8px;
+	margin-left: 6px;
+	width: 20px;
+	height: 20px;
+	background: url(img/map-search.png) no-repeat center;
+	background-size: 100%;
+}
+.seek-box .icon-del{
+	display: none;
+	position: absolute;
+	right: 66px;
+	top: -3px;
+	width: 20px;
+	height: 20px;
+	background: url(img/maphtml-dT.png) no-repeat center;
+	background-size: 100%;
+}
+.seek-box .seek-inp{
+	height: 36px;
+	box-sizing: border-box;
+	padding: 6px 0;
+	font-size: 14px;
+	color: #666;
+	line-height: 20px;
+}
+.seek-box .seek-btn{
+	position: absolute;
+	right: 0;
+	top:0;
+	height: 38px;
+	padding: 0;
+	margin:0;
+	padding-bottom: 4px;
+	text-align: center;
+	background: #1B6EE6;
+	color: #fff;
+	font-size: 14px;
+	line-height: 38px;
+	padding: 0 15px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.search-historyResult .indexMap-top{
+	position: initial;
+	top: initial;
+	left: initial;
+}
+.seek-info{
+	padding:5px 15px;
+	font-weight: normal;
+	font-size: 14px;
+}
+.seek-info .title{
+	margin-top: 0;
+	position: relative;
+	padding-left:24px;
+	font-size: 15px;
+	color:#999;
+	font-weight: normal;
+	background: url(img/maphtml-his.png) no-repeat left top;
+	background-size:18px;
+}
+.seek-info .del{
+	position: absolute;
+	top:0;
+	right:0;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url(img/maphtml-del.png) no-repeat center;
+	background-size: 100%;
+}
+.seek-info  .seek-info-item{
+	margin:0;
+	padding:0;
+	margin-right: 6px;
+	display: inline-block;
+	padding:5px 12px;
+	background-color: #F6F6F6;
+	border-radius: 20px;
+	text-shadow: 2px 2px 1px #fff;
+}
+
+.sideBar{
+	display: block;
+	z-index: 98;
+	position: fixed;
+	top: 123px;
+	right: 10px;
+	width: 50px;
+	height: 60px;
+	background-color: #fff;
+	border-radius: 3px;
+    box-shadow: 0 0 6px #e4e4e4;
+}
+
+.sideBar .searchTitle-all{
+	padding:0;
+	border: 0;
+	padding-top: 41px;
+	text-align: center;
+	font-size: 13px;
+}
+.sideBar .searchTitle-all::before{
+	left: 50%;
+	margin-left: -16px;
+	top: 8px;
+	width: 32px;
+	height: 32px;
+}
+.sideLocation{
+	margin-top:-45px;
+	margin-right: 10px;
+	width: 40px;
+	height: 40px;
+	padding: 10px;
+	box-sizing: border-box;
+	float: right;
+	background-color: #fff;
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 6px #e4e4e4;
+}
+.sideLocation .side-location{
+	width: 100%;
+	height: 100%;
+	background: url(img/map-location.png) no-repeat center;
+	background-size:100%;
+}
+
+
+.tuli{
+	position:fixed;
+	top: 123px;
+	left: 10px;
+	z-index:3;
+	background:rgba(255,255,255,.5);
+	font-size:12px;
+}
+.tuli-item {
+	margin-top:5px;
+}
+.tuli-item .tuli-border{
+	margin-right:5px;
+	display: inline-block;
+	width:20px;
+	height: 2px;
+	vertical-align: 2px;
+}
+.tuli-item .tuli-1{
+	border-bottom:3px dashed #ff7200;
+}
+.tuli-item .tuli-2{
+	border-bottom:3px dashed #0084ff;
+}
+.tuli-item .tuli-3{
+	border-bottom:3px dashed #ff0000;
+}

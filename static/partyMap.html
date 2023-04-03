@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>列表</title>
+	<link rel="stylesheet" href="map.css">
+    <!--地图标注Js文件-->
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" ></script>
+<!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=09AdclIzx4KKdYQYCYCtRRvHQQ1dDfSp"></script> -->
+<script type="text/javascript" src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=09AdclIzx4KKdYQYCYCtRRvHQQ1dDfSp"></script>   
+</head>
+<body>
+	<div class="indexMap-top flex">
+		<a onclick="gotoApp()">
+			<img src="img/fanhui.png" alt="">
+		</a>
+		<p id="mapTitle" class="flex1 text-ellipsis" style="max-width: 80%;margin:0 auto"></p>
+		<!-- <a class="gotoMap" id="gotoMap">列表</a> -->
+	</div>
+	<div id="allmap"></div>
+	
+	<!-- <div id="routeBtn" class="input-card">
+	    <div class="input-item flex">
+			<a class="btn flex1 current" data-type="navigator">到这去</a>
+	    </div>
+	</div> -->
+	<script type="text/html" id="markerHtml">
+	</script>
+<script src="mapJson.js"></script><!-- 地图基本配置json文件 -->
+<script type="text/javascript">
+
+	var marker, myMarker, mapPoint, marker_json = {},
+	searchType, circle, loadText, localSearch, lineArr = [], mapCenter = [], mapMarker = [];
+	//取url中的参数值
+	function getQuery(name) {
+		// 正则：[找寻'&' + 'url参数名字' = '值' + '&']（'&'可以不存在）
+		let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		let r = window.location.search.substr(1).match(reg);
+		// console.log('getQuery'+ name + r);
+		if(r != null) {
+			// 对参数值进行解码
+			return decodeURIComponent(r[2]);
+		}
+		return null;
+	};
+	
+	let url = getQuery('url');
+	let session = getQuery('session');
+	let center = getQuery('mapCenter').split(",");
+	let phone = getQuery('phone');
+	if(phone == 'null'){
+		phone = '无'
+	}
+	let address = getQuery('address');
+	let destinationLat = getQuery('destinationLat');
+	let destinationLng = getQuery('destinationLng');
+	
+	url = decodeURI(url);
+	mapCenter = center;
+	var map = new BMapGL.Map("allmap");
+	mapPoint = new BMapGL.Point(mapJson.mapCenter[0],mapJson.mapCenter[1]);//创建定坐标
+	if(destinationLat && destinationLng){
+		mapPoint = new BMapGL.Point(destinationLng,destinationLat);//创建定坐标
+	}
+	map.centerAndZoom(mapPoint,14);//// 初始化地图,设置中心点坐标和地图级别
+	map.enableScrollWheelZoom(true);
+	
+	loadText = getQuery('pageName');
+	// 自定义maker信息内容
+	  function EnvMonitorOverlay(point, className) {
+	        this._point = point;
+	        this._className = className;
+	      }
+	      EnvMonitorOverlay.prototype = new BMapGL.Overlay();
+	      EnvMonitorOverlay.prototype.showWindow = function(html){
+	        if(EnvMonitorOverlay.showing){
+	          EnvMonitorOverlay.showing.closeWindow();
+	        }
+	        this._div.appendChild($(html)[0]);
+	        EnvMonitorOverlay.showing = this;
+	      }
+	      EnvMonitorOverlay.prototype.closeWindow = function(){
+	        $(this._div).empty();
+	      }
+	      EnvMonitorOverlay.prototype.getPosition = function(){
+	        return this._point;
+	      }
+	      EnvMonitorOverlay.prototype.initialize = function(mp) {
+	        this._map = mp;
+	        var div = this._div = document.createElement("div");
+	        div.setAttribute('class', this._className);
+	        var that = this;
+			// console.log('------destinationLat',that,destinationLat)
+			if(that.ikdo.latitude == destinationLat){
+				openInfoWindow.call(that);
+			}
+			// openInfoWindow.call(that);
+			let num = 0;
+	       div.onclick = function(e){
+			    var $target = $(e.target);
+				if($target.hasClass('marker')){
+					openInfoWindow.call(that);
+					// uni.navigateTo({
+					// 	url:`/PStore/pages/store/party-detail`
+					// })
+					
+				} else if($target.hasClass("daohang")){
+					toMapAPP(that._point.latitude,that._point.longitude,that.ikdo.name)
+				}
+	        }
+	        mp.getPanes().labelPane.appendChild(div);
+	        
+	        return div;
+	      };
+	      EnvMonitorOverlay.prototype.draw = function() {
+	        var map = this._map;
+	        var pixel = map.pointToOverlayPixel(this._point);
+	        this._div.style.left = pixel.x + "px";
+	        this._div.style.top = pixel.y + "px";
+	      };
+	function openInfoWindow(){
+		var html = $("#markerHtml").html();
+		html =`<div class='marker-info'>
+				<div class='info-body'>
+					<h5 class='name text-ellipsis'>${this.ikdo.name}</h5>
+					<p>联系人：${this.ikdo.contact || "无"}</p>
+					<p>电话：${this.ikdo.phone || "无"}</p>
+					<p class="text-ellipsis">地址：${this.ikdo.address}</p>
+					<p class='daohang'>到这去>></p>
+				</div>
+			</div>`;
+		//this.showWindow(html);
+		uni.navigateTo({
+			url:`/PStore/pages/store/party-detail?id=${this.ikdo.id}&pageName=${this.ikdo.name}`
+		})
+	}
+	jQuery("#mapTitle").text(loadText);
+	
+	
+	getList();
+	function getList(){
+		$(".marker").remove();//清楚所有的marker
+		let jsonUrl;
+		jsonUrl =  url,
+		$.get(jsonUrl,function(res){
+			let listData = res.data;
+			// console.log('listData',listData)
+			let arrLength = listData.length;
+			let str = '';
+			for (var t = 0; t < listData.length; t++) {
+				var p0 = listData[t].longitude; //
+				var p1 = listData[t].latitude; //按照原数组的point格式将地图点坐标的经纬度分别提出来
+				var point = new BMapGL.Point(p0, p1); //循环生成新的地图点
+				var clz = ["marker",'party'];
+				var mapMarkers = new EnvMonitorOverlay(point, clz.join(" "));
+				mapMarkers.ikdo = listData[t];
+				marker_json[listData[t].id] = mapMarkers;
+								
+				map.addOverlay(mapMarkers);
+				// console.log('mapMarkers',mapMarkers)
+			}
+		})
+	}
+	
+	
+	//打开第三方地图
+	function toMapAPP(latitude,longitude,name){
+		// console.log(JSON.stringify(arguments));
+		// console.log('latitude' +latitude +'longitude' + longitude + 'name' +name)
+	    let url = "";
+	    //  #ifdef APP-PLUS
+			plus.nativeUI.actionSheet({//选择菜单
+			    title: "选择地图应用",
+			    cancel: "取消",
+			    buttons: [{title: "腾讯地图"},{title: "百度地图"}, {title: "高德地图"}]
+			}, function(e) {
+			    switch (e.index) {
+					//下面是拼接url,不同系统以及不同地图都有不同的拼接字段
+			        case 1:
+					    //注意referer=xxx的xxx替换成你在腾讯地图开发平台申请的key
+			            url = `qqmap://map/geocoder?coord=${latitude},${longitude}&referer=xxx`;
+			            break;
+			        case 2:
+			            url = `baidumap://map/marker?location=${latitude},${longitude}&title=${name}&coord_type=gcj02&src=cn.com.ikdo.qiyuApp`;
+			            break;
+					case 3:
+					    url = `androidamap://viewMap?sourceApplication=appname&poiname=${name}&lat=${latitude}&lon=${longitude}&dev=0`;
+						break;
+			        default:
+			            break;
+			    }
+			    if (url != "") {
+			        url = encodeURI(url);
+					//plus.runtime.openURL(url,function(e){})调起手机APP应用
+			        plus.runtime.openURL(url, function(e) {
+			            plus.nativeUI.alert("本机未安装指定的地图应用");
+			        });
+			    }
+			})
+	    // #endif
+	}
+	
+	map.enableScrollWheelZoom(true);
+	
+	/* 跳回app页面 */
+	function gotoApp(){
+		uni.navigateBack();
+	}
+/* 	jQuery("#gotoMap").on('click', function () {
+		let HtmlX = $(this).html();
+		if(HtmlX == '地图'){
+			jQuery("#content").hide();
+			$(this).html('列表');
+		}else{
+			jQuery("#content").show();
+			$(this).html('地图');
+		}
+	}) */
+</script>
+</body>
+</html>

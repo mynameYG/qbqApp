@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>地图</title>
+	<link rel="stylesheet" href="map.css">
+    <!--地图标注Js文件-->
+<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" ></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=09AdclIzx4KKdYQYCYCtRRvHQQ1dDfSp"></script>
+   
+</head>
+<body>
+	<div class="indexMap-top flex">
+		<a onclick="gotoApp()">
+			<img src="img/fanhui.png" alt="">
+		</a>
+		<p id="mapTitle" class="flex1"></p>
+		<a id="navTolist" style="display:none;right:0;width:65px">居民医保</a>
+	</div>
+
+	<div class="map-search">
+		<div class="search-btn"></div>
+		<input id="txtTitle"  type="hidden">
+		<div class="search-input" id="searchhtml" onclick="changeSearchPage()">请输入搜索关键字</div>
+	</div> 
+	<div id="allmap"></div>
+	<div onclick="changeSearchTitle()" class="sideBar">
+		<div class="searchTitle-all">圈类型</div>
+	</div>
+	<div id='searchTitle' class="searchTitleBox" style="display: none;">
+		<div onclick="changeSearchTitle()" class="searchTitleBoxBg"></div>
+		<div class="searchTitleWrap">
+			<div class="searchTitle-all">圈类型
+				<input type="checkbox" id="all" checked class="regular-checkbox">
+				<label for="all"></label>
+			</div>
+			<div class="searchTitle">
+			</div>
+		</div>
+	</div>
+	<div id="content" class="icon" style="display:none;">
+		<div onclick="mapLocation()" class="sideLocation">
+			<div class="side-location"></div>
+		</div>
+		<div class="contentBtn" onclick="changeContent()"></div>
+		<div id="r-result" class="r-result">
+			<ul id='result-list'></ul>
+			<p class="search-result">共找到<span id="num" class="num"></span>个结果</p>
+		</div> 
+		<div onclick="changeContent()" class="display-btn">展开更多</div>
+	</div>
+	
+	<div id="searchPage" class="search-historyResult" style="display: none;">
+		<div class="indexMap-top flex">
+			<a onclick="changeSearchPage()" id="block">
+				<img src="img/fanhui.png" alt="">
+			</a>
+			<p id="mapTitle" class="flex1">搜索</p>
+		</div>
+		<div class="seek-box">
+			<div class="seek-box-input flex flexmid">
+				<p class="icon-sousuo"></p>
+				<input id="seekTitle" class="flex1 seek-inp" type="text" placeholder="请输入搜索关键字"/>
+				<p id="seekTitleDel" class="icon-del"></p>
+			</div>
+			<p id="seekBtn"  class="seek-btn">搜索</p>
+		</div>
+		<div id="seekInfo" class="seek-info">
+			<h3 class="title">历史搜索 <span class="del"></span></h3>
+			<div class="lsjl"></div>
+		</div>
+	</div>
+	
+	<div class="tuli">
+		<div class="tuli-item">
+			<span class="tuli-1 tuli-border"></span>5分钟
+		</div>
+		<div class="tuli-item">
+			<span class="tuli-2 tuli-border"></span>10分钟
+		</div>
+		<div class="tuli-item">
+			<span class="tuli-3 tuli-border"></span>15分钟
+		</div>
+	</div>
+	
+<script type="text/html" id="markerHtml">
+</script>
+<script src="mapJson.js"></script><!-- 地图基本配置json文件 -->
+<script type="text/javascript">
+	console.log('mapJson',mapJson)
+	var marker, myMarker, mapPoint, qh, myPoint,
+		start,
+		end,localSearch, lineArr = [], mapMarker = [];
+	var textname = [];
+	//取url中的参数值
+	function getQuery(name) {
+		// 正则：[找寻'&' + 'url参数名字' = '值' + '&']（'&'可以不存在）
+		let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		let r = window.location.search.substr(1).match(reg);
+		//console.log('getQuery'+ name + r);
+		if(r != null) {
+			// 对参数值进行解码
+			return decodeURIComponent(r[2]);
+		}
+		return null;
+	};
+	
+	let url = getQuery('url');
+	let session = getQuery('session');
+	let groupType = getQuery('groupType');//获取类别code
+	// console.log('groupType',groupType)
+	let curType = getQuery('curType');//获取当前选中类别code
+	// console.log('curType',curType)
+	let loadText = getQuery('pageName');
+	let mapCenter = getQuery("mapCenter");
+	jQuery("#mapTitle").text(loadText);
+	url = decodeURI(url);
+
+	var myCity = new BMapGL.LocalCity();
+	var map = new BMapGL.Map("allmap");
+	
+	mapPoint = new BMapGL.Point(mapJson.mapCenter[0],mapJson.mapCenter[1]);//创建定坐标
+	jQuery("#txtCityName").val('鹤壁市');
+	map.centerAndZoom(mapPoint,mapJson.mapZoom);//// 初始化地图,设置中心点坐标和地图级别
+	map.enableScrollWheelZoom(true);
+	
+	// 地图画圈
+	var map_circle = [];
+	function addCircle(mapPoint){
+		if(map_circle.length == 0){
+			function circleOption(option){
+				return $.extend({strokeWeight: 3, fillOpacity: 0, strokeStyle:'dashed', strokeOpacity: 1, enableMassClear: false}, option);
+			}
+			map_circle[0] = new BMapGL.Circle(mapPoint,mapJson.CircleRadius[0], circleOption({strokeColor:'#ff7200'}));
+			map_circle[1] = new BMapGL.Circle(mapPoint,mapJson.CircleRadius[1], circleOption({strokeColor:"#0084ff"}));
+			map_circle[2] = new BMapGL.Circle(mapPoint,mapJson.CircleRadius[2], circleOption({strokeColor:"#ff0000"}));
+			for(var p of map_circle){
+				map.addOverlay(p);
+			}
+		} else {
+			var n = Math.random();
+			for(var p of map_circle){
+				p.setCenter(mapPoint);
+			}
+		}
+	}
+	
+	function currentGeolocation(callback,sign){
+		if(sign){
+			let center = getQuery('mapCenter');
+			console.log("centercentercenter",center)
+			if(center) { 
+				center = center.split(",");
+				callback({lat: center[0], lng: center[1]});
+				return
+			}
+		}	
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/html5plus/i) == "html5plus"){
+			// var date = new Date().getTime();
+			// var info = {};
+			plus.geolocation.getCurrentPosition(function(p){
+				//info.one = new Date().getTime() - date;
+				//console.log("step 1: getCurrentPosition", info.one);
+				var x = p.coords.longitude;
+				var y = p.coords.latitude;
+				var ggPoint = new BMapGL.Point(x,y);
+				var convertor = new BMapGL.Convertor();
+				var pointArr = [];
+				pointArr.push(ggPoint);
+				convertor.translate(pointArr, COORDINATES_WGS84, COORDINATES_BD09, translateCallback);
+			    function translateCallback(data){
+					//info.two = new Date().getTime() - date;
+					//console.log("step 2: translateCallback", info.two);
+					//plus.nativeUI.toast('获取定位耗时:' + info.one + "ms, " + info.two + "ms")
+					callback({lat: data.points[0].lat, lng: data.points[0].lng});
+				}
+			});
+		} else {
+			var geolocation = new BMapGL.Geolocation();
+			geolocation.enableSDKLocation();
+			geolocation.getCurrentPosition(function(r){
+				console.log(r.point.lat,r.point.lng);
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){ //检索成功
+					callback({lat: r.point.lat, lng: r.point.lng});
+					console.log(r.point.lat,r.point.lng);
+				}
+			});
+		}
+	}
+	var load_status = {userLocation: false}
+	getUserLocation(true);
+	getAllType();
+	// 获取当前定位    
+	
+	function getUserLocation(sign){
+		load_status.userLocation = false;
+		currentGeolocation(function(p){
+			/* p = {
+				lng:114.312341,
+				lat:35.748873
+			} */
+			//point = new BMapGL.Point(114.312341,);
+			// point = new BMapGL.Point(113.549455,34.798455);
+			myPoint = new BMapGL.Point(p.lng,p.lat);
+			addMymarker(p)
+			load_status.userLocation = true;
+			if(load_status.func){
+				load_status.func.apply(this, load_status.arg);
+				load_status.func = null;
+			}
+		},sign);
+		
+	}
+	
+	/* 添加我的坐标及画圈 */
+	function addMymarker(p, toCenter){
+		var point = new BMapGL.Point(p.lng,p.lat);
+		mapPoint = point;//创建定坐标
+		
+		if(myMarker){
+			myMarker.setPosition(mapPoint);
+		} else {
+			var icon = new BMapGL.Icon('img/locationMy.png', new BMapGL.Size(25,25));
+			myMarker = new BMapGL.Marker(mapPoint, {enableMassClear: false});
+			myMarker.setIcon(icon);
+			map.addOverlay(myMarker);
+		}
+		if(toCenter !== false){
+			map.panTo(mapPoint);
+		}
+		start = point;//开始点
+		addCircle(mapPoint);
+	}
+	function mapLocation(){
+		getUserLocation(false);
+		//addMymarker(myPoint);
+		searchBaiduMap()
+	}
+	
+	/* 地图拖动 */
+	map.addEventListener("moveend", function () {
+		if ( mapJson.map_dragend ) {
+			var center = map.getCenter();
+			/* console.log("地图中心点变更为：" , center.lng , center.lat); */
+			addMymarker(center, false)
+			searchBaiduMap()
+		}
+	});
+	
+
+
+function getAllType(){
+	/* 获取所有类别 */
+	let jsonUrl = url+'/tags';
+	textname = [];
+	$.get(jsonUrl,function(res){
+		var Data = res.data;
+		/* for (var i = 0; i<Data.length; i++ ) {
+			textname.push(Data[i].name);
+		} */
+		let str = [];
+		Data.forEach(item => {
+			let json = item.flag1.split(',');
+			item.word = json[0];
+			item.color = json[1];
+			str.push(`<p class="group" data-code='${item.code}'>
+			<span class="code" style="background-color:${item.color}">${item.word}</span>
+			<span>${item.name}</span>	
+			<input type="checkbox" id="${item.code}" value="${item.code}" checked name="checkbox" class="regular-checkbox">
+			<label for="${item.code}"></label>
+			</p>`) 
+			/* if(groupType && groupType !='null' && groupType !='onlyOne'){
+				if(item.tagName == groupType){
+					typeNum++;
+					searchCode.push(item.tagName);
+					searchText = mapJson.typeJson[item.tagName].title;
+					groupTypeList.push(item);
+				}
+			}else{
+				typeNum++;
+				groupTypeList.push(item);
+			} */
+		})
+		
+		jQuery("#searchTitle .searchTitle").html(str);
+		searchBaiduMap()
+	})
+}	
+
+	
+	
+
+	// 自定义maker信息内容
+	  function EnvMonitorOverlay(point, className) {
+	        this._point = point;
+	        this._className = className;
+	      }
+	      EnvMonitorOverlay.prototype = new BMapGL.Overlay();
+	      EnvMonitorOverlay.prototype.showWindow = function(html){
+	        if(EnvMonitorOverlay.showing){
+	          EnvMonitorOverlay.showing.closeWindow();
+	        }
+	        this._div.appendChild($(html)[0]);
+	        EnvMonitorOverlay.showing = this;
+	      }
+	      EnvMonitorOverlay.prototype.closeWindow = function(){
+	        $(this._div).empty();
+	      }
+	      EnvMonitorOverlay.prototype.getPosition = function(){
+	        return this._point;
+	      }
+	      EnvMonitorOverlay.prototype.initialize = function(mp) {
+	        this._map = mp;
+	        var div = this._div = document.createElement("div");
+	        div.setAttribute('class', this._className);
+	        var that = this;
+			let num = 0;
+	       div.onclick = function(e){
+			    var $target = $(e.target);
+				if($target.hasClass('marker')){
+					// that.openInfoWindow();
+					console.log('that.ikdo',that.ikdo)
+					uni.navigateTo({
+						url:`/PStore/pages/store/store-detail?id=${that.ikdo.id}&pageName=${that.ikdo.title}`
+					})
+					//getArticle(that.ikdo.locusId);//获取文章列表
+				} else if($target.hasClass("daohang")){
+					/* uni.navigateTo({
+						url: `/pages/index/map?pageName=${that.ikdo.title}&destinationLat=${that._point.lat}&destinationLng=${that._point.lng}
+						&address=${that.ikdo.address}&phone=${that.ikdo.phone}`,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					}); */
+					toMapAPP(that._point.lat,that._point.lng,that.ikdo.title)
+				}else if($target.hasClass("more")){
+					uni.navigateTo({
+						url: `/PGov/pages/index/mapChannel-itemInfo?curId=${that.ikdo.id}&pageName=${that.ikdo.title}&destinationLat=${that.ikdo.lat}&destinationLng=${that._point.lng}
+						&address=${that.ikdo.address}&phone=${that.ikdo.phone}`,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+	        }
+	        mp.getPanes().labelPane.appendChild(div);
+	        
+	        return div;
+	      };
+	      EnvMonitorOverlay.prototype.draw = function() {
+	        var map = this._map;
+	        var pixel = map.pointToOverlayPixel(this._point);
+	        this._div.style.left = pixel.x + "px";
+	        this._div.style.top = pixel.y + "px";
+	      };
+		  EnvMonitorOverlay.prototype.openInfoWindow = function(){
+			var html = $("#markerHtml").html();
+			html =`<div class='marker-info'>
+					<div class='info-body'>
+						<h5 class='name text-ellipsis'>${this.ikdo.title}</h5>
+						<p>电话：${this.ikdo.phone || ""}</p>
+						<p class="text-ellipsis">地址：${this.ikdo.address}</p>
+						<p class='daohang'>到这去>></p>
+					</div>
+				</div>`;
+			// this.showWindow(html);
+			uni.navigateTo({
+				url:`/PStore/pages/store/store-detail?id=${this.ikdo.id}&pageName=${this.ikdo.title}`
+			})
+		}
+	//内容显示changeContent
+	function changeContent(){  
+		if($('#r-result').hasClass('r-result-open')){
+			  //如果隐藏时。。。
+			  jQuery("#r-result").removeClass('r-result-open');
+			  $('.display-btn').show();
+			  $('.contentBtn').hide();
+			  // $('.contentBtn').removeClass('result');
+		}else{
+			  //如果显示时。。。
+			 jQuery("#r-result").addClass('r-result-open');
+			 $('.display-btn').hide();
+			 $('.contentBtn').show();
+			// $('.contentBtn').addClass('result');
+		}
+	}
+	
+	//#searchTitle显示
+	function changeSearchTitle(){
+		if($('#searchTitle').is(':hidden')){
+		      //如果隐藏时。。。
+			  jQuery("#searchTitle").show();
+		}else{
+		      //如果显示时。。。
+			jQuery("#searchTitle").hide();
+			searchBaiduMap();
+		}
+		
+	}
+	function  closeWindow(){
+		$('#searchTitle p').removeClass('current');
+		map.clearOverlays();//清除图层覆盖物
+		$(".marker").remove();//清楚所有的marker
+		jQuery("#txtTitle").val('');
+		jQuery("#content").hide();
+	}
+	function Clear(){//清除
+		map.clearOverlays();//清除图层覆盖物
+		$(".marker").remove();//清楚所有的marker
+		// jQuery("#txtTitle").val('');
+		jQuery("#content").hide();
+	}
+	
+	jQuery("#searchTitle .btn").on('click', function () {
+		if($(this).is('.down')){
+			$(this).removeClass('down');
+			$(this).prev('.searchTitle').removeClass('up');
+		}else{
+			$(this).addClass('down');
+			$(this).prev('.searchTitle').addClass('up');
+		}
+	})
+	// 选中全部圈类型
+	$('#all').on("click", function() {
+		let result = $(this).is(':checked')
+		let allCheck = $('#searchTitle .regular-checkbox');
+		if(result){
+			for (var i = 0; i < allCheck.length; i++) {
+			    allCheck[i].checked = true;
+			}
+			jQuery("#inputText").html();
+		}else{
+			for (var i = 0; i < allCheck.length; i++) {
+			    allCheck[i].checked = false;
+			}
+			closeWindow();
+			
+		}
+	})
+	var checkboxtext = null;
+	$("#searchTitle").on("change", "p.group input", function() {
+		// Clear();
+		
+		checkboxtext = [];
+		var $this = $(this);
+		let notCheck = $(".searchTitle input[name='checkbox']:checkbox").not("input:checked").length;
+		console.log('notCheck',notCheck)
+		if(notCheck > 0){
+			$('#all').prop("checked",false);
+		}else{
+			$('#all').prop("checked",true);
+		}
+		
+		let pCode,thisText;
+		thisText=  $(this).text();
+		jQuery("#inputText").html(thisText);
+		var arr = $(".searchTitle input[name='checkbox']:checkbox:checked").prev();
+		for(var i = 0; i < arr.length; i++ ) {
+			checkboxtext.push(arr[i].innerHTML)
+		}
+	});
+	// 地图搜索 searchPage
+	$('#seekTitle').bind('input change', function() { 
+	　　//进行相关操作 
+		$('#seekTitleDel').show();
+	});
+	$('#seekTitleDel').click(function(){
+		$('#seekTitle').val('');
+		$('#seekTitleDel').hide();
+	})
+	function changeSearchPage(){
+		if($('#searchPage').is(':hidden')){
+		      //如果隐藏时。。。
+			  jQuery("#searchPage").show()
+		}else{
+		      //如果显示时。。。
+			jQuery("#searchPage").hide()
+		}
+	}
+	function haveChild(){
+		let haveChild = $('#seekInfo').find('.seek-info-item').length;
+		if(haveChild > 0){
+			$('#seekInfo').show()
+		}else{
+			$('#seekInfo').hide()
+		}
+	}
+	haveChild();
+
+	
+	// $('#seekBtn').click(function(){
+	// 	let seekT = $('#seekTitle').val(); 
+	// 	let str = '';
+	// 	var searcharr = [];
+	// 	var result = localStorage.getItem('msg');
+	// 	// if(result) {
+	// 	// 	searcharr = result.concat(searcharr);
+	// 	// }
+	// 	if(!seekT){
+	// 		return false
+	// 	}else{
+	// 		var repeat = false;
+	// 		var searchtext = $("#seekInfo p");
+	// 		for (var i = 0; i < searchtext.length; i++ ) {
+	// 			if(searchtext.eq(i).text() == seekT) {
+	// 				repeat = true;
+	// 				break;
+	// 			}
+	// 		}
+	// 		if(!repeat) {
+	// 			str += `<p class="seek-info-item">${seekT}</p>`
+	// 			$('#seekInfo .title').after(str);
+	// 		}
+	// 	}
+	// 	var lsval = $("#seekInfo p.seek-info-item");
+	// 	if(lsval) {
+	// 		for(var i = 0; i < lsval.length; i++ ) {
+	// 			searcharr.push(lsval.eq(i).text());
+	// 		}
+	// 	}
+	// 	localStorage.setItem('msg',JSON.stringify(searcharr));
+	// 	$('#txtTitle').attr("value",seekT);
+	// 	if(seekT){
+	// 		$("#searchhtml").text(seekT);
+	// 	} else {
+	// 		$("#searchhtml").text("请输入搜索关键字");
+	// 	}
+		
+	// 	searchBaiduMap()
+	// 	changeSearchPage();
+	// 	haveChild();
+	// })
+	
+	// 搜索
+	var searchArr;
+	if(localStorage.search){
+		searchArr= localStorage.search.split(",")
+		$("#seekInfo").show();
+	}else{
+		searchArr = [];
+		$("#seekInfo").hide();
+	} 
+	MapSearchArr();
+	$("#seekBtn").on("click", function(){
+		var val = $('#seekTitle').val(); 
+		$('#txtTitle').attr("value",val);
+		KillRepeat(val);
+		if(val){
+			$("#searchhtml").text(val);
+			localStorage.search = searchArr;
+		} else {
+			$("#searchhtml").text("请输入搜索关键字");
+		}
+		MapSearchArr(); 
+		searchBaiduMap()
+		changeSearchPage();
+		haveChild();
+	});
+	function MapSearchArr(){
+		var tmpHtml = "";
+		for (var i=0;i<searchArr.length;i++){
+			if(searchArr[i] == "") {
+				continue;
+			}
+			tmpHtml += `<p class="seek-info-item" style="margin: 5px 5px">${searchArr[i]}</p>`
+		}
+		$('#seekInfo .lsjl').html(tmpHtml);
+	}
+	//去重
+	function KillRepeat(val){
+		var kill = 0;
+		for (var i=0;i<searchArr.length;i++){
+			if(val===searchArr[i]){
+				kill ++;
+			}
+		}
+		if(kill<1){
+			searchArr.push(val);
+		}
+	}
+	
+	$('#seekInfo .del').click(function(){
+		searchArr = [];
+		localStorage.search=searchArr;
+		$('#seekInfo .lsjl').html("");
+		haveChild();
+	})
+	
+	$('#seekInfo').on("click", 'p.seek-info-item', function() {
+		let text = $(this).text();
+		$('#txtTitle').attr("value",text);
+		$("#seekTitle").val(text);
+		if(text){
+			$("#searchhtml").text(text);
+		} else {
+			$("#searchhtml").text("请输入搜索关键字");
+		}
+		searchBaiduMap()
+		changeSearchPage();
+	})
+	
+	//搜索栏返回时
+	$("#block").click(function() {
+		var seekTitle = $("#seekTitle").val();
+		if(seekTitle){
+			$("#searchhtml").text(seekTitle);
+		} else {
+			$("#searchhtml").text("请输入搜索关键字");
+			$("#txtTitle").val("");
+		}
+		searchBaiduMap()
+	})
+	
+	/* 获取分类列表 */
+	function getList(Text, group, baiduMapResult){
+		Clear();
+		$('#result-list').empty();//置空
+		$('.r-result').removeClass('r-result-open')
+		$('#content').removeClass('result');
+		$('#content').css({"height":'auto'})
+		if(group == undefined){
+			group = ""
+		}
+		let jsonUrl;
+		jsonUrl =  url+`/list?title=${Text}&group=${group}&mapType=${mapJson.mapType}&lat=${mapPoint.lat}&lng=${mapPoint.lng}&pageSize=100`
+		$.get(jsonUrl,function(res){
+			let listData = res.data.list;
+			let newBaiduList = baiduMapResult.filter(function(item1) {
+			     return listData.every(function(item2) {
+					 // console.log('-------------',similar(item1.title,item2.title)*100)
+			       return similar(item1.title,item2.title)*100 < mapJson.similarity
+			     })
+			 })
+			
+			listData = listData.concat(newBaiduList);
+			// console.log('listData',listData)
+			let arrLength = listData.length;
+			let str = '';
+			let numShow = 0;
+			if(arrLength > 0){
+				for (var i = 0; i < listData.length; i++) {
+					//计算离当前位置的距离;
+					end = new BMapGL.Point(listData[i].lng, listData[i].lat);//结束点
+					listData[i].distance = calMeter(start,end);
+				}
+			}
+			listData = listData.sort(sortId);
+			for (var t = 0; t < listData.length; t++) {
+				if(Math.round(listData[t].distance) < mapJson.Maxdistance){
+					// console.log('listData[t]',listData[t])
+					numShow ++ ;
+					let time = Math.round(listData[t].distance/1.5);
+					// second(time);
+					if(time < 60){
+						listData[t].arrive = '就在附近'
+					}else{
+						listData[t].arrive = '约' + second(time) + '到达'
+					}
+					listData[t].distance = kmUnit(listData[t].distance);
+					var p0 = listData[t].lng; //
+					var p1 = listData[t].lat; //按照原数组的point格式将地图点坐标的经纬度分别提出来
+					var point = new BMapGL.Point(p0, p1); //循环生成新的地图点
+					var typeCode = listData[t].type.sort;
+					var clz = ["marker"];
+						clz.push(typeCode || "");
+					var mapMarkers = new EnvMonitorOverlay(point, clz.join(" "));
+					mapMarkers.ikdo = listData[t];
+					marker_json[listData[t].id] = mapMarkers;
+									
+					map.addOverlay(mapMarkers);
+					
+					
+					// origin 为baidu是百度数据，否则为采集数据
+					str += `<li data-id=${listData[t].id} data-origin=${listData[t].origin}>
+						<div class="inner">
+							<span style="display:none">${listData[t].lng},${listData[t].lat}</span>
+							<p class="title text-ellipsis" style="font-size:13px;font-weight:600;color:#333"> ${t+1}.${listData[t].title}</p>
+							<p class="title text-ellipsis">圈类型：${listData[t].type.alias1 || ""}圈</p>
+							<p class="phone text-ellipsis">电话：${listData[t].phone || ""}</p>
+							<p class="address text-ellipsis">地址：${listData[t].address || ''}</p>
+							<p class="distance">${listData[t].distance}【${listData[t].arrive}】</p>
+						</div>
+					</li>`;
+				}
+			}
+			jQuery("#num").html(numShow);
+			if(numShow == 0){
+				$('.contentBtn').hide();
+				$('.display-btn').hide();
+				$('.r-result').addClass('r-result-small')
+			}else{
+				$('.display-btn').show();
+				$('.r-result').removeClass('r-result-small')
+			}
+			jQuery("#content").show();
+			jQuery("#result-list").html(str);
+			jQuery("#result-list li").bind('click', function () {
+				jQuery(this).parent().find('.inner').css('background-color', '#fff');
+				jQuery(this).find('.inner').css("background-color", '#FFF0F0');
+				var marker = marker_json[$(this).data('id')];
+				if($(this).data('origin') != 'baidu'){
+					getArticle($(this).data('id'));// 不是百度数据获取文章列表
+				}
+				map.panTo(marker.getPosition());
+				marker.openInfoWindow()
+			})
+		})
+	}
+	var marker_json = {};
+	// 获取文章列表
+	function getArticle(currentId){
+		let ArticleUrl =  url+`/article/${currentId}`
+		$.get(ArticleUrl,function(res){
+			if(res.data.length > 0){
+				$('.marker-info').append("<a class='more'>更多信息>></a>")
+			}
+		})
+	}
+	// 排序
+	function sortId(a,b){
+		let Adistance = a.distance;
+		let Bdistance = b.distance;
+		return Adistance - Bdistance
+	}
+	//封装计算两点之间的距离;
+	function calMeter(p1, p2) {
+		// console.log('两点之间的距离：' + (kmUnit(map.getDistance(p1, p2))));
+		// return kmUnit(map.getDistance(p1, p2))
+		return map.getDistance(p1, p2)
+	}
+	function kmUnit(m){
+		var v;
+		if(typeof m === 'number' && !isNaN(m)){
+			if (m >= 1000) {
+				v = (m / 1000).toFixed(2) + '公里'
+			} else {
+				v = Math.round(m) + '米'
+			}
+		}else{
+			v = '0米'
+		}
+		return v;
+	}
+	function second(value) {
+	    var theTime = parseInt(value);// 秒
+	    var str = []
+	
+	    if(theTime >= 3600) {
+			var hour = Math.floor(theTime / 3600);
+			theTime -= hour * 3600;
+			str.push(hour + '小时')
+		}
+		if(theTime >= 60){
+			str.push(Math.ceil(theTime / 60) + '分钟')
+		}
+	    return str.join('');
+	}
+	// 计算相似度
+	function similar(s, t, f) {
+	        if (!s || !t) {
+	            return 0
+	        }
+	        var l = s.length > t.length ? s.length : t.length
+	        var n = s.length
+	        var m = t.length
+	        var d = []
+	        f = f || 3
+	        var min = function(a, b, c) {
+	            return a < b ? (a < c ? a : c) : (b < c ? b : c)
+	        }
+	        var i, j, si, tj, cost
+	        if (n === 0) return m
+	        if (m === 0) return n
+	        for (i = 0; i <= n; i++) {
+	            d[i] = []
+	            d[i][0] = i
+	        }
+	        for (j = 0; j <= m; j++) {
+	            d[0][j] = j
+	        }
+	        for (i = 1; i <= n; i++) {
+	            si = s.charAt(i - 1)
+	            for (j = 1; j <= m; j++) {
+	                tj = t.charAt(j - 1)
+	                if (si === tj) {
+	                    cost = 0
+	                } else {
+	                    cost = 1
+	                }
+	                d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+	            }
+	        }
+	        let res = (1 - d[n][m] / l)
+	        return res.toFixed(f)
+	    }
+	/* 跳回app页面 */
+	function gotoApp(){
+		uni.reLaunch({
+			url: '/pages/index/index'
+		 });
+	}
+	if(loadText == '医疗卫生'){
+		jQuery("#navTolist").show();
+		jQuery("#navTolist").on('click', function () {
+			uni.navigateTo({
+				url: '/PGov/pages/index/map-channelChild?pageName=居民医保&channelCode=medicine&listCode=jmyb',
+				success: res => {},
+				fail: () => {},
+				complete: () => {}
+			});
+		})
+	}
+	function pAddClass(){
+		$('#searchTitle .p').addClass('current');
+	}pAddClass();
+	//打开第三方地图
+	function toMapAPP(latitude,longitude,name){
+		// console.log(JSON.stringify(arguments));
+		// console.log('latitude' +latitude +'longitude' + longitude + 'name' +name)
+	    let url = "";
+	    //  #ifdef APP-PLUS
+			plus.nativeUI.actionSheet({//选择菜单
+			    title: "选择地图应用",
+			    cancel: "取消",
+			    buttons: [{title: "腾讯地图"},{title: "百度地图"}, {title: "高德地图"}]
+			}, function(e) {
+			    switch (e.index) {
+					//下面是拼接url,不同系统以及不同地图都有不同的拼接字段
+			        case 1:
+					    //注意referer=xxx的xxx替换成你在腾讯地图开发平台申请的key
+			            url = `qqmap://map/geocoder?coord=${latitude},${longitude}&referer=xxx`;
+			            break;
+			        case 2:
+			            url = `baidumap://map/marker?location=${latitude},${longitude}&title=${name}&coord_type=gcj02&src=cn.com.ikdo.qiyuApp`;
+			            break;
+					case 3:
+					    url = `androidamap://viewMap?sourceApplication=appname&poiname=${name}&lat=${latitude}&lon=${longitude}&dev=0`;
+						break;
+			        default:
+			            break;
+			    }
+			    if (url != "") {
+			        url = encodeURI(url);
+					//plus.runtime.openURL(url,function(e){})调起手机APP应用
+			        plus.runtime.openURL(url, function(e) {
+			            plus.nativeUI.alert("本机未安装指定的地图应用");
+			        });
+			    }
+			})
+	    // #endif
+	}
+	
+	
+	
+	
+	function searchBaiduMap(){
+		// searchTitlearr   首次加载获取的值
+		if(!load_status.userLocation){
+			load_status.arg = arguments;
+			load_status.func = searchBaiduMap;
+			return
+		}
+		var searchTitle = [];
+		var searchCode = [];
+		$(".searchTitle input[name='checkbox']:checkbox:checked").each(function(){
+		 //由于复选框一般选中的是多个,所以可以循环输出 
+			searchCode.push($(this).val());
+			searchTitle.push($(this).prev().text());
+		});
+		var group = searchCode.join(","); 
+		if(searchTitle.length == 0 ) {
+			InputText = $("#txtTitle").val();
+		} else if(!$("#txtTitle").val()) {
+			InputText = searchTitle
+		} else if( searchTitle && $("#txtTitle").val()) {
+			InputText = [...searchTitle,...[$("#txtTitle").val()]]
+		} else {
+			InputText = ""
+		}
+
+		let baiduMapResult = []; //百度搜索信息列表
+		if(mapJson.search_baidu_data) {
+			var options = {
+					pageCapacity: mapJson.pageCapacity,
+					onSearchComplete: function(results){
+						console.log('')
+						// 判断状态是否正确
+						if (local.getStatus() == BMAP_STATUS_SUCCESS){  //百度地图状态值检索值成功对应值0
+							var arr = results;
+							if(typeof InputText != 'object'){
+								arr = [results]
+							}
+							console.log("-----------------------",arr);
+							for (var i = 0; i < arr.length; i ++){
+									var tmp = arr[i];
+									for(var j = 0, len = tmp.getCurrentNumPois(); j < len; j++){
+										handle(tmp.getPoi(j))
+									}
+							}
+							function handle(poi_info){
+								if(!poi_info || !poi_info.point) return ;
+								let item = {
+									id: poi_info.uid,
+									origin:'baidu',
+									type:{
+										sort:"baidu"
+									},
+									title:poi_info.title,
+									address: poi_info.address || '',
+									phone: poi_info.phoneNumber || '',
+									lat: poi_info.point.lat,
+									lng: poi_info.point.lng
+								}
+								baiduMapResult.push(item);
+							}
+						}
+						getList($("#txtTitle").val(), group, baiduMapResult);
+					}
+				};
+				
+				var local = new BMapGL.LocalSearch(map, options);
+				if(typeof InputText == "object") {
+					local.searchInBounds(InputText, map.getBounds()); //百度api搜索多个内容需要$隔开
+				} else {
+					local.searchNearby(InputText,mapPoint,mapJson.searchNearbyRadius);
+				}
+	
+		} else {
+			getList($("#txtTitle").val(), group, baiduMapResult);
+		}
+		
+	}
+	
+	
+	
+	//滑动
+	/* var startX , startY ,endX ,endY ,distanceX ,distanceY;
+		$('#content').bind('touchstart',function(e){
+			startX = e.originalEvent.changedTouches[0].pageX,
+			startY = e.originalEvent.changedTouches[0].pageY;
+			console.log('startY'+e)
+		});
+		$('#content').bind('touchmove',function(e){
+			//获取滑动屏幕时的X,Y
+			endX = e.originalEvent.changedTouches[0].pageX,
+			endY = e.originalEvent.changedTouches[0].pageY;
+			//获取滑动距离
+			distanceX = endX-startX;
+			distanceY = endY-startY;
+			
+			let resultH = $('.search-result').height();
+			//判断滑动方向
+			if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX>0){
+				console.log('往右滑动');
+			}else if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX<0){
+				console.log('往左滑动');
+			}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY<0){
+				console.log('往上滑动');
+				$('#content').removeClass('result');
+				$('#content').css({"height":'auto'})
+				
+			}else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY>0){
+				//console.log('往下滑动滑动屏幕y' + endY +  '----滑动距离'+ distanceY);
+				let resultListH =  $('#content').height();
+				let contHe = resultListH - distanceY;
+				if(resultListH > 36){
+					if(contHe < 160){
+						 $('#content').addClass('result');
+						 $('#content').css({"height":'auto'})
+					}else{
+						$('#content').removeClass('result');
+						$('#content').css({"height":contHe})
+					}
+				}
+			}else{
+				console.log('点击未滑动');
+			}
+	
+		}); */
+</script>
+</body>
+</html>
