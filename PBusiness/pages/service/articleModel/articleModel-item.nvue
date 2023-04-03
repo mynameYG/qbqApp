@@ -1,0 +1,238 @@
+<template>
+  <view class="media-item view" @click="click(problemItem)">
+	<view class="view">
+	    <image class='icon' src="@/static/img/title.png"/><text class="media-title text-ellipsis">{{problemItem.title || problemItem.name || '-'}}</text>
+	</view>
+	<view class="view">
+	  <image class='icon' src="@/static/img/time.png"/><text class="media-title">{{dateFilter(problemItem.createDate,'date') || dateFilter(problemItem.releaseDate,'date') || '-'}}</text>
+	</view>
+  </view>
+</template>
+
+<script>
+  import util from '@/util/util';
+  export default {
+    props: {
+      problemItem: {
+        type: Object,
+        default: function(e) {
+          return {}
+        }
+      }
+    },
+	mounted(){
+			console.log('val',this.problemItem)
+	},
+    methods: {
+      dateFilter(date, type){
+		return util.dateFilter(date, type);
+	  },
+      click(item) {
+        // this.$emit('click');
+		uni.navigateTo({
+			url: `/PBusiness/pages/service/articleModel/articleModel-detail?id=${item.id}&name=${item.title}`
+		});
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+	
+	.icon{
+		margin-right:5px;
+		width: 20px;
+		height: 20px;
+	}
+  .view {
+    flex-direction: row;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .list-cell {
+    padding: 0 15px;
+  }
+
+  .uni-list-cell-hover {
+    background-color: #eeeeee;
+  }
+
+  .media-item {
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    padding: 15px 15px 5px 15px;
+	border-radius: 5px;
+	overflow:hidden;
+	box-shadow: 0 2upx 8upx rgba(0, 0, 0, .06);
+	background-color: #fff;
+	.view{
+		margin-bottom:10px;
+	}
+	.badge{
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		right:10px;
+		top:50%;
+		transform: translateY(-50%);
+		.iconImg{
+			width: 50px;
+			height: 50px;
+		}
+		/* #ifndef APP-PLUS-NVUE */
+		uni-image{
+			width: 100%;
+		}
+		/* #endif */
+	}
+  }
+
+  .media-item-line {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 0;
+    height: 1px;
+    background-color: #ebebeb;
+  }
+
+  .media-image-right {
+    flex-direction: row;
+  }
+
+  .media-image-left {
+    flex-direction: row-reverse;
+  }
+
+  .media-title {
+    flex: 1;
+  }
+
+  .media-title {
+    lines: 1;
+    text-overflow: ellipsis;
+    font-size: 15px;
+	line-height: 20px;
+    color: #555555;
+  }
+
+  .media-title2 {
+    flex: 1;
+    margin-top: 3px;
+    line-height: 20px;
+  }
+
+  .image-section {
+    margin-top: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .image-section-right {
+    margin-top: 0;
+    margin-left: 5px;
+    width: 112px;
+    height: 73px;
+  }
+
+  .image-section-left {
+    margin-top: 0;
+    margin-right: 5px;
+    width: 112px;
+    height: 73px;
+  }
+
+  .image-list1 {
+    height: 240px;
+  }
+
+  .image-list2 {
+    width: 112px;
+    height: 73px;
+  }
+
+  .image-list3 {
+    width: 112px;
+    height: 73px;
+  }
+
+  .media-info {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .info-text {
+    margin-right: 10px;
+    color: #999999;
+    font-size: 12px;
+  }
+
+  .media-foot {
+    margin-top: 12px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .close-view {
+    position: relative;
+    align-items: center;
+    flex-direction: row;
+    width: 20px;
+    height: 15px;
+    line-height: 15px;
+    border-width: 1upx;
+    border-style: solid;
+    border-color: #aaaaaa;
+    border-radius: 4px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .close-l {
+    position: absolute;
+    width: 9px;
+    height: 1px;
+    background-color: #aaaaaa;
+  }
+
+  .close-h {
+    transform: rotate(45deg);
+  }
+
+  .close-v {
+    transform: rotate(-45deg);
+  }
+  .media-item .media-type{
+	margin-bottom:0;
+	padding:20px 0;
+	position: relative;
+	border-top: 1px dotted #e4e4e4; 
+	.badge{
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		right:0;
+		top:10px;
+		transform: translateY(0);
+		.iconImg{
+			width: 40px;
+			height: 40px;
+		}
+		/* #ifndef APP-PLUS-NVUE */
+		uni-image{
+			width: 100%;
+		}
+		/* #endif */
+	}
+  }
+  
+</style>
