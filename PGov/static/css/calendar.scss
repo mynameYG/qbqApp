@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+.calendar-box {
+	margin-bottom: 15px;
+	/deep/ .uni-calendar{
+		border-radius: 4px;
+	}
+	/deep/ .uni-calendar__backtoday {
+		background-color: #f44
+	}
+
+	/deep/ .uni-calender__date {
+		padding: 5px 0;
+	}
+
+	/deep/ .uni-calender__body-date-week {
+		border-bottom: 0;
+	}
+
+	/deep/ .uni-calenda__content .uni-calendar__header {
+		border-top: 0;
+	}
+
+	/deep/ .uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__backtoday {
+		color: #fff;
+		border: 1px solid #3D9CFC;
+		background: #3D9CFC;
+	}
+
+	/deep/.uni-calender__date .uni-calender__circle-box {
+		width: 35px;
+		height: 35px;
+	}
+
+	/deep/ .uni-calender__date.uni-calender__date-current .uni-calender__circle-box {
+		background: #3D9CFC;
+	}
+
+	/deep/ .uni-calender__body-date-week .uni-calender__date .uni-calender__data-circle {
+		background-color: #3D9CFC;
+	}
+	/deep/ .uni-calendar__content{
+		background-color: rgba($color: #fff, $alpha: 0.8)  !important;
+	}
+}
+/deep/ uni-modal .uni-modal__btn_primary {
+	color: #3D9CFC;
+}
+
+.room-box{
+	background-color: rgba($color: #fff, $alpha: 0.8)  !important;
+	padding: 10px 0;
+}
+.room-status-item{
+	padding: 0 15px;
+	.room-color{
+		display: inline-block;
+		width: 14px;
+		height: 14px;
+		background-color: #3D9CFC;
+		border-radius: 4px;
+		margin-right: 6px;
+		vertical-align: middle;
+	}
+	.room-status{
+		font-size: 14px;
+		color:#666;
+		vertical-align: middle;
+		padding: 2px 10px;
+		border-radius:3px;
+	}
+}
+.room-status-item:nth-of-type(1){
+	.room-status{
+		background-color: #EAF6DC;
+		border:1px solid #97D051;
+	}
+}
+.room-status-item:nth-of-type(2){
+	.room-status{
+		background-color: #FBE6E7;
+		border:1px solid #1B6EE6;
+	}
+}
+.room-status-item:nth-of-type(3){
+	.room-status{
+		background-color: #f9f9f9;
+		border:1px solid #d4d4d4;
+	}
+}
+.room-status-item:nth-of-type(4){
+	.room-color{
+		background-color: #FBCC0E;
+	}
+}
+.room-list{
+	padding: 0 15px;
+}
+.room-title{
+	font-size: 15px;
+	color:#333;
+	padding:18px 0;
+}
+.room-time-item{
+	border-radius: 5px;
+	padding:6px;
+	margin-bottom: 10px;
+}
+.room-time-item.dsp-color{
+	background-color: #D8EBFE;
+	border:1px solid #5BABFC;
+}
+.room-time-item.ytg-color{
+	background-color: #EAF6DC;
+	border:1px solid #97D051;
+}
+.room-time-item.yjs-color{
+	background-color: #f9f9f9;
+	border:1px solid #d4d4d4;
+}
+.room-time-item.yjj-color{
+	background-color: #FBE6E7;
+	border:1px solid #1B6EE6;
+}
+.room-time-item.yqx-color{
+	background-color: #faf0c9;
+	border:1px solid #FBCC0E;
+}
+.room-time-title{
+	font-size: 14px;
+	color:#333;
+	line-height: 24px;
+}
+.room-dd{
+	font-size: 14px;
+	color:#3D9CFC;
+	line-height: 24px;
+	padding: 0 10px;
+}
